@@ -67,7 +67,6 @@ export default class GameScene extends Phaser.Scene {
 
   // Custom
   onKeyDownA(event) {
-    console.log('move left')
     this.channel.emit('PLAYER_MOVE', { x: -1 })
   }
 
