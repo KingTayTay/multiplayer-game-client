@@ -1,5 +1,4 @@
 import * as Phaser from "phaser";
-import { enable3d, Canvas } from "@enable3d/phaser-extension";
 import GameScene from "./scenes/game";
 import RootScene from "./scenes/root";
 
@@ -13,9 +12,8 @@ const config = {
     height: 720,
   },
   scene: [RootScene, GameScene],
-  ...Canvas(),
 };
 
 window.addEventListener("load", () => {
-  enable3d(() => new Phaser.Game(config)).withPhysics("/assets/ammo");
+  new Phaser.Game(config);
 });

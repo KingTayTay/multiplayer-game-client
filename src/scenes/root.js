@@ -1,12 +1,25 @@
+import Geckos from '@geckos.io/client'
+
 export default class RootScene extends Phaser.Scene {
   constructor() {
-    super({ key: "RootScene" });
+    super({ key: 'RootScene' })
   }
 
   preload() {}
 
   create() {
-    this.scene.start("GameScene");
+    const channel = Geckos({ port: 1444 })
+
+    channel.onConnect((error) => {
+      if (error) {
+        console.error(error.message)
+      }
+
+      channel.on('ready', () => {
+        console.log('ready')
+        this.scene.start('GameScene', { channel: channel })
+      })
+    })
 
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),

@@ -1,0 +1,12 @@
+{
+  "extends": ["standard", "prettier"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "Phaser": true
+  },
+  "rules": {
+    "no-new": 0
+  }
+}
