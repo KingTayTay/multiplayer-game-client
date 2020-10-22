@@ -1,0 +1,37 @@
+{
+  "name": "multiplayer-game-client",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/KingTayTay/multiplayer-game-client.git",
+  "author": "TylerWilson <tyler.r.wilson15@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "parcel serve src/index.html --no-source-maps"
+  },
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "parcel": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.5.0"
+  },
+  "dependencies": {
+    "@enable3d/phaser-extension": "^0.20.0",
+    "@geckos.io/client": "^1.7.0",
+    "lodash": "^4.17.20",
+    "phaser": "^3.24.1"
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "src/assets",
+        "staticOutDir": "assets"
+      }
+    ]
+  }
+}
