@@ -23,6 +23,8 @@
   "dependencies": {
     "@enable3d/phaser-extension": "^0.20.0",
     "@geckos.io/client": "^1.7.0",
+    "bulma": "^0.9.1",
+    "jsx-dom": "^6.4.21",
     "lodash": "^4.17.20",
     "phaser": "^3.24.1"
   },

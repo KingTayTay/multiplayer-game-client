@@ -1,12 +1,13 @@
 import { forEach, has } from 'lodash/fp'
 import Player from '../components/Player'
+import Enemy from '../components/Enemy'
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' })
 
     this.id = undefined
-    this.channelId = undefined
+    this.enemy = undefined
     this.players = {}
 
     this.onKeyDownA = this.onKeyDownA.bind(this)
@@ -20,21 +21,27 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.spritesheet('enemy_idle', 'assets/enemy/idle.png', {
+      frameWidth: 38,
+      frameHeight: 28,
+    })
     this.load.spritesheet('player', 'assets/player.png', {
       frameWidth: 32,
       frameHeight: 48,
     })
+    this.load.image('card', 'assets/card.png')
   }
 
   create() {
-    this.channel.on('SERVER_UPDATE_PLAYER_ADDED', ({ id, channelId }) => {
+    this.channel.on('SERVER_UPDATE_PLAYER_ADDED', ({ id }) => {
       this.id = id
-      this.channelId = channelId
     })
 
     this.channel.on('SERVER_UPDATE_PLAYER_REMOVED', ({ id }) => {})
 
     this.channel.on('SERVER_UPDATE', (updates) => {
+      const { players, enemy } = updates
+
       forEach((player) => {
         const { id, x, y } = player
         const hasPlayer = has(id, this.players)
@@ -49,7 +56,15 @@ export default class GameScene extends Phaser.Scene {
         } else {
           this.players[id].setPosition(x, y)
         }
-      })(updates)
+      })(players)
+
+      const { id, name, hp } = enemy
+      if (!this.enemy) {
+        const gameObject = new Enemy(this, id, name, hp)
+        this.enemy = gameObject
+      } else {
+        this.enemy.hp = hp
+      }
     })
 
     this.channel.emit('PLAYER_ADD')
@@ -61,6 +76,8 @@ export default class GameScene extends Phaser.Scene {
     const keyD = this.input.keyboard.addKey('D')
     keyD.on('down', this.onKeyDownD)
     keyD.on('up', this.onKeyUpD)
+
+    this.add.sprite(100, 100, 'card').setOrigin(0, 0)
   }
 
   update() {}

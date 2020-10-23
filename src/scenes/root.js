@@ -1,4 +1,5 @@
 import Geckos from '@geckos.io/client'
+import 'bulma/css/bulma.css'
 
 export default class RootScene extends Phaser.Scene {
   constructor() {
@@ -17,7 +18,7 @@ export default class RootScene extends Phaser.Scene {
 
       channel.on('ready', () => {
         console.log('ready')
-        this.scene.start('GameScene', { channel: channel })
+        this.scene.start('MenuScene', { channel })
       })
     })
 
